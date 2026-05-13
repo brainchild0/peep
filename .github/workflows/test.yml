@@ -7,10 +7,20 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
-        rust: [stable, nightly]
+        img:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macOS-latest
+          - macOS-14
+        rust:
+          - stable
+        include:
+          - img: ubuntu-latest
+            rust: nightly
+          - img: macOS-latest
+            rust: nightly
         
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.img }}
 
     steps:
     - uses: hecrj/setup-rust-action@v1
